@@ -1,0 +1,145 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/widget_margin"
+                android:background="#09C">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:id="@+id/section_temp"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_alignParentStart="true"
+                  android:layout_alignParentTop="true"
+                  android:orientation="horizontal"
+                  style="@style/AppWidgetSection">
+
+        <TextView
+                android:id="@+id/appwidget_temp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/temperature"
+                style="@style/AppWidgetText"/>
+
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:id="@+id/section_description"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_alignParentStart="true"
+                  android:layout_below="@+id/section_temp"
+                  android:orientation="horizontal"
+                  style="@style/AppWidgetSection">
+
+        <TextView
+                android:id="@+id/appwidget_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="--"
+                style="@style/AppWidgetText"/>
+
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:id="@+id/section_last_before"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_alignParentStart="true"
+                  android:layout_below="@+id/section_description"
+                  android:orientation="horizontal"
+                  style="@style/AppWidgetSection">
+
+        <TextView
+                android:id="@+id/appwidget_last_before"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="--"
+                style="@style/AppWidgetText"/>
+
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:id="@+id/section_err_count"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_alignParentStart="true"
+                  android:layout_below="@+id/section_last_before"
+                  android:orientation="horizontal"
+                  style="@style/AppWidgetSection">
+
+        <TextView
+                android:id="@+id/appwidget_err_count_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="Errors"
+                style="@style/AppWidgetLabel"/>
+
+        <TextView
+                android:id="@+id/appwidget_err_count"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="--"
+                style="@style/AppWidgetText"/>
+
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:id="@+id/section_ok_count"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_alignParentStart="true"
+                  android:layout_below="@+id/section_err_count"
+                  android:orientation="horizontal"
+                  style="@style/AppWidgetSection">
+
+        <TextView
+                android:id="@+id/appwidget_ok_count_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="OK"
+                style="@style/AppWidgetLabel"/>
+
+        <TextView
+                android:id="@+id/appwidget_ok_count"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="--"
+                style="@style/AppWidgetText"/>
+
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:id="@+id/section_refresh"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_alignParentStart="true"
+                  android:layout_below="@+id/section_ok_count"
+                  android:orientation="vertical"
+                  style="@style/AppWidgetSection">
+
+        <TextView
+                android:id="@+id/appwidget_refresh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/date_count_format"
+                style="@style/AppWidgetText"/>
+
+    </LinearLayout>
+
+    <Button
+            android:id="@+id/button_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/section_refresh"
+            android:layout_centerHorizontal="true"
+            android:text="Update now"
+            style="@style/AppWidgetButton"/>
+
+</RelativeLayout>

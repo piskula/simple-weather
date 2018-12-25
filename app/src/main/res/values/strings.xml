@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">SimpleWidget</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="date_count_format">%1$d @%2$s</string>
+    <string name="temperature">%1$.0f °C (%2$s)</string>
+</resources>
