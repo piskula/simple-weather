@@ -1,38 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="@dimen/widget_margin"
-                android:background="#09C">
+                android:background="#66FFFFFF">
+    <ImageView
+            android:id="@+id/weather_icon"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/w03d"
+            android:contentDescription="TODO"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"/>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:id="@+id/section_temp"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:layout_alignParentStart="true"
-                  android:layout_alignParentTop="true"
-                  android:orientation="horizontal"
-                  style="@style/AppWidgetSection">
+    <TextView
+            android:id="@+id/temperature_value"
+            android:text="22 °C"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:fontFamily="@font/advent_pro_thin"
+            android:textSize="36sp"/>
 
-        <TextView
-                android:id="@+id/appwidget_temp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/temperature"
-                style="@style/AppWidgetText"/>
-
-    </LinearLayout>
+    <TextView
+            android:id="@+id/place_value"
+            android:text="Michalovce"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/temperature_value"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/advent_pro_thin"
+            android:textSize="18sp"/>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                   android:id="@+id/section_description"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:layout_alignParentStart="true"
-                  android:layout_below="@+id/section_temp"
+                  android:layout_below="@+id/weather_icon"
                   android:orientation="horizontal"
                   style="@style/AppWidgetSection">
 
         <TextView
-                android:id="@+id/appwidget_description"
+                android:id="@+id/description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -42,7 +57,7 @@
     </LinearLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:id="@+id/section_last_before"
+                  android:id="@+id/section_err_ok_count"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:layout_alignParentStart="true"
@@ -50,67 +65,23 @@
                   android:orientation="horizontal"
                   style="@style/AppWidgetSection">
 
-        <TextView
-                android:id="@+id/appwidget_last_before"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="--"
-                style="@style/AppWidgetText"/>
+        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1">
+            <TextView
+                    android:id="@+id/appwidget_ok_count"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    style="@style/AppWidgetLabel"/>
+        </LinearLayout>
 
-    </LinearLayout>
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:id="@+id/section_err_count"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:layout_alignParentStart="true"
-                  android:layout_below="@+id/section_last_before"
-                  android:orientation="horizontal"
-                  style="@style/AppWidgetSection">
-
-        <TextView
-                android:id="@+id/appwidget_err_count_label"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="Errors"
-                style="@style/AppWidgetLabel"/>
-
-        <TextView
-                android:id="@+id/appwidget_err_count"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="--"
-                style="@style/AppWidgetText"/>
-
-    </LinearLayout>
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:id="@+id/section_ok_count"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:layout_alignParentStart="true"
-                  android:layout_below="@+id/section_err_count"
-                  android:orientation="horizontal"
-                  style="@style/AppWidgetSection">
-
-        <TextView
-                android:id="@+id/appwidget_ok_count_label"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="OK"
-                style="@style/AppWidgetLabel"/>
-
-        <TextView
-                android:id="@+id/appwidget_ok_count"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="--"
-                style="@style/AppWidgetText"/>
+        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1">
+            <TextView
+                    android:id="@+id/appwidget_err_count"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    style="@style/AppWidgetLabel"/>
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -119,7 +90,7 @@
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:layout_alignParentStart="true"
-                  android:layout_below="@+id/section_ok_count"
+                  android:layout_below="@+id/section_err_ok_count"
                   android:orientation="vertical"
                   style="@style/AppWidgetSection">
 
@@ -127,7 +98,24 @@
                 android:id="@+id/appwidget_refresh"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:text="@string/date_count_format"
+                style="@style/AppWidgetText"/>
+
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:id="@+id/section_async"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_alignParentStart="true"
+                  android:layout_below="@+id/section_refresh"
+                  android:orientation="vertical"
+                  style="@style/AppWidgetSection">
+
+        <TextView
+                android:id="@+id/appwidget_async"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="@string/date_count_format"
                 style="@style/AppWidgetText"/>
 
@@ -137,7 +125,7 @@
             android:id="@+id/button_update"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/section_refresh"
+            android:layout_below="@id/section_async"
             android:layout_centerHorizontal="true"
             android:text="Update now"
             style="@style/AppWidgetButton"/>

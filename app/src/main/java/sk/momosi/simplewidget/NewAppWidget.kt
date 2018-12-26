@@ -31,8 +31,11 @@ class NewAppWidget : AppWidgetProvider() {
             if (permissions == PackageManager.PERMISSION_GRANTED) {
                 RefreshConditions(WeakReference(context)).execute()
             } else {
-                views.setTextViewText(R.id.appwidget_err_count, "Permis")
+                views.setTextViewText(R.id.description, "Permis")
             }
+
+//            Blurry.with(context).radius(25).sampling(2).onto(views as ViewGroup)
+
 
             // this intent is responsible for manually updating widget
             views.setOnClickPendingIntent(R.id.button_update, generateUpdateButtonIntent(context, appWidgetId))

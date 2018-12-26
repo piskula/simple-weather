@@ -46,4 +46,6 @@ dependencies {
     compile 'com.google.android.gms:play-services-gcm:16.0.0'
     compile 'com.google.android.gms:play-services-location:16.0.0'
     implementation 'com.google.code.gson:gson:2.8.5'
+    // TODO try add blur effect to background
+//    compile 'jp.wasabeef:blurry:2.0.3'
 }

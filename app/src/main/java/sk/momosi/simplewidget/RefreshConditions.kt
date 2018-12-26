@@ -17,8 +17,12 @@ import org.apache.http.client.methods.HttpGetHC4
 import org.apache.http.impl.client.HttpClientBuilder
 import org.apache.http.util.EntityUtilsHC4
 import sk.momosi.simplewidget.entity.ResponseDto
+import sk.momosi.simplewidget.entity.WeatherDto
 import java.lang.Exception
 import java.lang.ref.WeakReference
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+
 
 class RefreshConditions(private val context: WeakReference<Context>) : AsyncTask<Void, Void, ResponseDto?>() {
 
@@ -93,8 +97,10 @@ class RefreshConditions(private val context: WeakReference<Context>) : AsyncTask
         // update widget
         val appWidgetManager = AppWidgetManager.getInstance(context)
         val remoteViews = RemoteViews(context.packageName, R.layout.new_app_widget)
-        remoteViews.setTextViewText(R.id.appwidget_last_before, DateUtils.getRelativeTimeSpanString(lastUpdatedAt))
-        remoteViews.setTextViewText(R.id.appwidget_err_count, counter.toString())
+        remoteViews.setTextViewText(R.id.description, DateUtils.getRelativeTimeSpanString(lastUpdatedAt))
+        remoteViews.setTextViewText(R.id.appwidget_err_count, context.resources.getString(R.string.count_err, counter))
+        remoteViews.setTextViewText(R.id.appwidget_async,
+            "LastAsync: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MM. HH:mm")))
 
         val thisWidget = ComponentName(context, NewAppWidget::class.java)
         appWidgetManager.updateAppWidget(thisWidget, remoteViews)
@@ -103,20 +109,33 @@ class RefreshConditions(private val context: WeakReference<Context>) : AsyncTask
     private fun setResultOk(context: Context, response: ResponseDto?) {
         val temp = response?.main?.temp
         val town = response?.name
-        Log.e("RefreshConditions", "Response has came: $temp")
+        Log.e("RefreshConditions", "Response has came: $temp, ${response?.weather?.get(0)}")
 
         val counter = increaseCounter(true)
 
         // update widget
         val appWidgetManager = AppWidgetManager.getInstance(context)
         val remoteViews = RemoteViews(context.packageName, R.layout.new_app_widget)
-        remoteViews.setTextViewText(R.id.appwidget_temp, context.resources.getString(R.string.temperature, temp, town))
-        remoteViews.setTextViewText(R.id.appwidget_description, response?.weather?.get(0)?.description ?: "-")
-        remoteViews.setTextViewText(R.id.appwidget_last_before, "")
-        remoteViews.setTextViewText(R.id.appwidget_ok_count, counter.toString())
+
+        remoteViews.setImageViewResource(R.id.weather_icon, resolveIconId(context, response?.weather?.get(0)))
+        remoteViews.setTextViewText(R.id.temperature_value, context.resources.getString(R.string.temperature, temp))
+        remoteViews.setTextViewText(R.id.place_value, town)
+        remoteViews.setTextViewText(R.id.description, response?.weather?.get(0)?.description ?: "-")
+
+        remoteViews.setTextViewText(R.id.appwidget_ok_count, context.resources.getString(R.string.count_ok, counter))
+        remoteViews.setTextViewText(R.id.appwidget_async,
+            "LastAsync: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MM. HH:mm")))
 
         val thisWidget = ComponentName(context, NewAppWidget::class.java)
         appWidgetManager.updateAppWidget(thisWidget, remoteViews)
+    }
+
+    private fun resolveIconId(context: Context, weatherDto: WeatherDto?): Int {
+        var icon = weatherDto?.icon ?: "50d"
+        if (arrayListOf("03n", "04n", "09n", "11n", "13n", "50n").contains(icon)) {
+            icon = icon.replace('n', 'd')
+        }
+        return context.resources.getIdentifier("w$icon", "drawable", context.packageName)
     }
 
     private fun increaseCounter(isOk: Boolean): Int {
