@@ -20,8 +20,8 @@ import sk.momosi.simplewidget.entity.ResponseDto
 import sk.momosi.simplewidget.entity.WeatherDto
 import java.lang.Exception
 import java.lang.ref.WeakReference
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class RefreshConditions(private val context: WeakReference<Context>) : AsyncTask<Void, Void, ResponseDto?>() {
@@ -45,6 +45,7 @@ class RefreshConditions(private val context: WeakReference<Context>) : AsyncTask
      */
     @SuppressLint("MissingPermission")
     override fun doInBackground(vararg params: Void?): ResponseDto? {
+        // TODO handle null lastLocation
         val location: Location = Tasks.await(fusedLocationClient.lastLocation)
         return refreshConditionsForCoordinates(location.latitude, location.longitude)
     }
@@ -55,7 +56,7 @@ class RefreshConditions(private val context: WeakReference<Context>) : AsyncTask
 
         if (ctx != null) {
             if (error != null) {
-                setResultError(ctx, error)
+                setResultError(ctx)
             } else {
                 setResultOk(ctx, result)
             }
@@ -64,17 +65,17 @@ class RefreshConditions(private val context: WeakReference<Context>) : AsyncTask
 
     override fun onCancelled() {
         val ctx = context.get()
-        if (ctx != null) setResultError(ctx, null)
+        if (ctx != null) setResultError(ctx)
     }
 
     private fun refreshConditionsForCoordinates(lat: Double, lon: Double): ResponseDto? {
         val http = HttpClientBuilder.create().build()
-        val getMethod =
-            HttpGetHC4("https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=edd2d24092e9a212f38ade02c357303e&units=metric")
+        val url = "https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=edd2d24092e9a212f38ade02c357303e&units=metric"
+        Log.e("RefreshConditions", "URL: $url")
 
         try {
             http.use {
-                val response = it.execute(getMethod)
+                val response = it.execute(HttpGetHC4(url))
                 if (response.statusLine.statusCode >= 300) {
                     error = IllegalStateException("Error response ${response.statusLine.statusCode}: $response")
                     return null
@@ -87,7 +88,7 @@ class RefreshConditions(private val context: WeakReference<Context>) : AsyncTask
         }
     }
 
-    private fun setResultError(context: Context, exception: Exception?) {
+    private fun setResultError(context: Context) {
         Log.e("RefreshConditions", "setResultError called")
 
         val counter = increaseCounter(false)
@@ -100,7 +101,7 @@ class RefreshConditions(private val context: WeakReference<Context>) : AsyncTask
         remoteViews.setTextViewText(R.id.description, DateUtils.getRelativeTimeSpanString(lastUpdatedAt))
         remoteViews.setTextViewText(R.id.appwidget_err_count, context.resources.getString(R.string.count_err, counter))
         remoteViews.setTextViewText(R.id.appwidget_async,
-            "LastAsync: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MM. HH:mm")))
+            "LastAsync: " + SimpleDateFormat("dd.MM. HH:mm").format(Date(System.currentTimeMillis())))
 
         val thisWidget = ComponentName(context, NewAppWidget::class.java)
         appWidgetManager.updateAppWidget(thisWidget, remoteViews)
@@ -124,7 +125,7 @@ class RefreshConditions(private val context: WeakReference<Context>) : AsyncTask
 
         remoteViews.setTextViewText(R.id.appwidget_ok_count, context.resources.getString(R.string.count_ok, counter))
         remoteViews.setTextViewText(R.id.appwidget_async,
-            "LastAsync: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MM. HH:mm")))
+            "LastAsync: " + SimpleDateFormat("dd.MM. HH:mm").format(Date(System.currentTimeMillis())))
 
         val thisWidget = ComponentName(context, NewAppWidget::class.java)
         appWidgetManager.updateAppWidget(thisWidget, remoteViews)

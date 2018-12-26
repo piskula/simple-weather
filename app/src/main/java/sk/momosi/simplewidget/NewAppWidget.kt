@@ -7,10 +7,11 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.support.v4.content.ContextCompat
+import android.util.Log
 import android.widget.RemoteViews
 import java.lang.ref.WeakReference
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 /**
@@ -40,7 +41,7 @@ class NewAppWidget : AppWidgetProvider() {
             // this intent is responsible for manually updating widget
             views.setOnClickPendingIntent(R.id.button_update, generateUpdateButtonIntent(context, appWidgetId))
             views.setTextViewText(R.id.appwidget_refresh,
-                "Refreshed: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MM. HH:mm")))
+                "Refreshed: " + SimpleDateFormat("dd.MM. HH:mm").format(Date(System.currentTimeMillis())))
 
             appWidgetManager.updateAppWidget(appWidgetId, views)
         }
