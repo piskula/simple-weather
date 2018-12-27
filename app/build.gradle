@@ -42,9 +42,9 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
-    compile group: 'org.apache.httpcomponents' , name: 'httpclient-android' , version: '4.3.5.1'
-    compile 'com.google.android.gms:play-services-gcm:16.0.0'
-    compile 'com.google.android.gms:play-services-location:16.0.0'
+    implementation group: 'org.apache.httpcomponents' , name: 'httpclient-android' , version: '4.3.5.1'
+    implementation 'com.google.android.gms:play-services-gcm:16.0.0'
+    implementation 'com.google.android.gms:play-services-location:16.0.0'
     implementation 'com.google.code.gson:gson:2.8.5'
     // TODO try add blur effect to background
 //    compile 'jp.wasabeef:blurry:2.0.3'
