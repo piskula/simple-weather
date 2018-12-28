@@ -6,25 +6,30 @@
                 android:background="#66FFFFFF">
     <ImageView
             android:id="@+id/weather_icon"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:src="@drawable/w03d"
+            android:layout_width="75dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:src="@drawable/w09d"
             android:contentDescription="TODO"
+            android:scaleType="fitStart"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="8dp"/>
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@+id/temperature_value"
+            android:layout_marginBottom="0dp"/>
+            <!--android:layout_marginStart="8dp"/>-->
 
     <TextView
             android:id="@+id/temperature_value"
-            android:text="22 °C"
+            android:text="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginEnd="2dp"
             android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
             android:fontFamily="@font/advent_pro_thin"
-            android:textSize="36sp"/>
+            android:textSize="48sp"
+            android:layout_marginTop="2dp"
+            android:layout_toStartOf="@+id/textView"/>
 
     <TextView
             android:id="@+id/place_value"
@@ -32,102 +37,114 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_below="@id/temperature_value"
+            android:layout_alignParentBottom="true"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
             android:fontFamily="@font/advent_pro_thin"
             android:textSize="18sp"/>
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:id="@+id/section_description"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:layout_alignParentStart="true"
-                  android:layout_below="@+id/weather_icon"
-                  android:orientation="horizontal"
-                  style="@style/AppWidgetSection">
-
-        <TextView
-                android:id="@+id/description"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="--"
-                style="@style/AppWidgetText"/>
-
-    </LinearLayout>
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:id="@+id/section_err_ok_count"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:layout_alignParentStart="true"
-                  android:layout_below="@+id/section_description"
-                  android:orientation="horizontal"
-                  style="@style/AppWidgetSection">
-
-        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1">
-            <TextView
-                    android:id="@+id/appwidget_ok_count"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    style="@style/AppWidgetLabel"/>
-        </LinearLayout>
-
-        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1">
-            <TextView
-                    android:id="@+id/appwidget_err_count"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    style="@style/AppWidgetLabel"/>
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:id="@+id/section_refresh"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:layout_alignParentStart="true"
-                  android:layout_below="@+id/section_err_ok_count"
-                  android:orientation="vertical"
-                  style="@style/AppWidgetSection">
-
-        <TextView
-                android:id="@+id/appwidget_refresh"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/date_count_format"
-                style="@style/AppWidgetText"/>
-
-    </LinearLayout>
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:id="@+id/section_async"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:layout_alignParentStart="true"
-                  android:layout_below="@+id/section_refresh"
-                  android:orientation="vertical"
-                  style="@style/AppWidgetSection">
-
-        <TextView
-                android:id="@+id/appwidget_async"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/date_count_format"
-                style="@style/AppWidgetText"/>
-
-    </LinearLayout>
-
-    <Button
-            android:id="@+id/button_update"
+    <TextView
+            android:text="°C"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/advent_pro_thin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/section_async"
-            android:layout_centerHorizontal="true"
-            android:text="Update now"
-            style="@style/AppWidgetButton"/>
+            android:id="@+id/textView"
+            android:textSize="24sp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"/>
+
+    <!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+                  <!--android:id="@+id/section_description"-->
+                  <!--android:layout_width="match_parent"-->
+                  <!--android:layout_height="wrap_content"-->
+                  <!--android:layout_alignParentStart="true"-->
+                  <!--android:layout_below="@+id/weather_icon"-->
+                  <!--android:orientation="horizontal"-->
+                  <!--style="@style/AppWidgetSection">-->
+
+        <!--<TextView-->
+                <!--android:id="@+id/description"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--android:text="&#45;&#45;"-->
+                <!--style="@style/AppWidgetText"/>-->
+
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+                  <!--android:id="@+id/section_err_ok_count"-->
+                  <!--android:layout_width="match_parent"-->
+                  <!--android:layout_height="wrap_content"-->
+                  <!--android:layout_alignParentStart="true"-->
+                  <!--android:layout_below="@+id/section_description"-->
+                  <!--android:orientation="horizontal"-->
+                  <!--style="@style/AppWidgetSection">-->
+
+        <!--<LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1">-->
+            <!--<TextView-->
+                    <!--android:id="@+id/appwidget_ok_count"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text=""-->
+                    <!--style="@style/AppWidgetLabel"/>-->
+        <!--</LinearLayout>-->
+
+        <!--<LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1">-->
+            <!--<TextView-->
+                    <!--android:id="@+id/appwidget_err_count"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text=""-->
+                    <!--style="@style/AppWidgetLabel"/>-->
+        <!--</LinearLayout>-->
+
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+                  <!--android:id="@+id/section_refresh"-->
+                  <!--android:layout_width="match_parent"-->
+                  <!--android:layout_height="wrap_content"-->
+                  <!--android:layout_alignParentStart="true"-->
+                  <!--android:layout_below="@+id/section_err_ok_count"-->
+                  <!--android:orientation="vertical"-->
+                  <!--style="@style/AppWidgetSection">-->
+
+        <!--<TextView-->
+                <!--android:id="@+id/appwidget_refresh"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/date_count_format"-->
+                <!--style="@style/AppWidgetText"/>-->
+
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+                  <!--android:id="@+id/section_async"-->
+                  <!--android:layout_width="match_parent"-->
+                  <!--android:layout_height="wrap_content"-->
+                  <!--android:layout_alignParentStart="true"-->
+                  <!--android:layout_below="@+id/section_refresh"-->
+                  <!--android:orientation="vertical"-->
+                  <!--style="@style/AppWidgetSection">-->
+
+        <!--<TextView-->
+                <!--android:id="@+id/appwidget_async"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/date_count_format"-->
+                <!--style="@style/AppWidgetText"/>-->
+
+    <!--</LinearLayout>-->
+
+    <!--<Button-->
+            <!--android:id="@+id/button_update"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@id/section_async"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:text="Update now"-->
+            <!--style="@style/AppWidgetButton"/>-->
 
 </RelativeLayout>
