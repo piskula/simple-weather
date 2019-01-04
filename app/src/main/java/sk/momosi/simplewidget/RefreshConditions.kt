@@ -6,7 +6,6 @@ import android.content.ComponentName
 import android.content.Context
 import android.location.Location
 import android.os.AsyncTask
-import android.text.format.DateUtils
 import android.util.Log
 import android.widget.RemoteViews
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -22,6 +21,7 @@ import java.lang.Exception
 import java.lang.ref.WeakReference
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.roundToInt
 
 
 class RefreshConditions(private val context: WeakReference<Context>) : AsyncTask<Void, Void, ResponseDto?>() {
@@ -117,10 +117,11 @@ class RefreshConditions(private val context: WeakReference<Context>) : AsyncTask
         // update widget
         val appWidgetManager = AppWidgetManager.getInstance(context)
         val remoteViews = RemoteViews(context.packageName, R.layout.new_app_widget)
+        val controlTimestamp = SimpleDateFormat("HH:mm").format(Date(System.currentTimeMillis()))
 
         remoteViews.setImageViewResource(R.id.weather_icon, resolveIconId(context, response?.weather?.get(0)))
-        remoteViews.setTextViewText(R.id.temperature_value, context.resources.getString(R.string.temperature, temp))
-        remoteViews.setTextViewText(R.id.place_value, town)
+        remoteViews.setTextViewText(R.id.temperature_value, context.resources.getString(R.string.temperature, temp?.roundToInt()))
+        remoteViews.setTextViewText(R.id.place_value, "$town ($controlTimestamp)" )
 //        remoteViews.setTextViewText(R.id.description, response?.weather?.get(0)?.description ?: "-")
 
 //        remoteViews.setTextViewText(R.id.appwidget_ok_count, context.resources.getString(R.string.count_ok, counter))

@@ -2,7 +2,7 @@
     <string name="app_name">SimpleWidget</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="date_count_format">%1$d @%2$s</string>
-    <string name="temperature">%1$.0f</string>
+    <string name="temperature">%1$d</string>
     <string name="count_err">Err: %1$d</string>
     <string name="count_ok">OK: %1$d</string>
 </resources>

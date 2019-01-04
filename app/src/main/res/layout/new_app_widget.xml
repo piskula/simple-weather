@@ -10,14 +10,14 @@
             android:layout_height="match_parent"
             android:layout_marginStart="4dp"
             android:layout_marginTop="4dp"
+            android:layout_marginBottom="0dp"
             android:src="@drawable/w09d"
             android:contentDescription="TODO"
             android:scaleType="fitStart"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
             android:layout_toStartOf="@+id/temperature_value"
-            android:layout_marginBottom="0dp"/>
-            <!--android:layout_marginStart="8dp"/>-->
+            android:layout_above="@+id/place_value"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"/>
 
     <TextView
             android:id="@+id/temperature_value"
