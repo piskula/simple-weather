@@ -1,9 +1,12 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
         android:height="33dp" android:width="34dp"
         android:viewportHeight="33" android:viewportWidth="34">
-    <path android:fillColor="#91C0F8"
-          android:pathData="M20.62,9.24c0,-2.76 -2.22,-4.92 -4.92,-4.92c-0.6,0 -1.14,0.12 -1.68,0.3c-0.18,-2.04 -1.86,-3.72 -3.96,-3.72c-2.22,0 -4.02,1.8 -4.02,4.02c0,0.48 0.12,0.96 0.24,1.38c-0.18,-0.06 -0.42,-0.06 -0.6,-0.06c-2.22,0 -4.02,1.8 -4.02,4.02c0,2.16 1.74,3.96 3.9,4.02l10.32,0C18.52,13.98 20.62,11.88 20.62,9.24z"
-          android:strokeColor="#ffffff" android:strokeLineJoin="round" android:strokeWidth="1.2"/>
+    <group
+        android:name="smallCloud" android:pivotX="10" android:pivotY="5" android:rotation="0">
+        <path android:fillColor="#91C0F8"
+              android:pathData="M20.62,9.24c0,-2.76 -2.22,-4.92 -4.92,-4.92c-0.6,0 -1.14,0.12 -1.68,0.3c-0.18,-2.04 -1.86,-3.72 -3.96,-3.72c-2.22,0 -4.02,1.8 -4.02,4.02c0,0.48 0.12,0.96 0.24,1.38c-0.18,-0.06 -0.42,-0.06 -0.6,-0.06c-2.22,0 -4.02,1.8 -4.02,4.02c0,2.16 1.74,3.96 3.9,4.02l10.32,0C18.52,13.98 20.62,11.88 20.62,9.24z"
+              android:strokeColor="#ffffff" android:strokeLineJoin="round" android:strokeWidth="1.2"/>
+    </group>
     <path android:fillColor="#57A0EE"
           android:pathData="M32.7,18.4c0,-4.6 -3.7,-8.2 -8.2,-8.2c-1,0 -1.9,0.2 -2.8,0.5c-0.3,-3.4 -3.1,-6.2 -6.6,-6.2c-3.7,0 -6.7,3 -6.7,6.7c0,0.8 0.2,1.6 0.4,2.3c-0.3,-0.1 -0.7,-0.1 -1,-0.1c-3.7,0 -6.7,3 -6.7,6.7c0,3.6 2.9,6.6 6.5,6.7l17.2,0C29.2,26.3 32.7,22.8 32.7,18.4z"
           android:strokeColor="#FFFFFF" android:strokeLineJoin="round" android:strokeWidth="1.2"/>

@@ -4,8 +4,10 @@ import android.Manifest.permission.ACCESS_COARSE_LOCATION
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.content.pm.PackageManager
+import android.graphics.drawable.Animatable
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 private const val MY_PERMISSION_ACCESS_COARSE_LOCATION = 11
@@ -27,5 +29,7 @@ class MainActivity : AppCompatActivity() {
                 MY_PERMISSION_ACCESS_COARSE_LOCATION
             )
         }
+
+        (imageView.drawable as Animatable).start()
     }
 }
