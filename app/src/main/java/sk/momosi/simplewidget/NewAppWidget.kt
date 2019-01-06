@@ -9,9 +9,6 @@ import android.content.pm.PackageManager
 import android.support.v4.content.ContextCompat
 import android.widget.RemoteViews
 import java.lang.ref.WeakReference
-import java.text.SimpleDateFormat
-import java.util.*
-
 
 /**
  * Implementation of App Widget functionality.
@@ -31,16 +28,12 @@ class NewAppWidget : AppWidgetProvider() {
             if (permissions == PackageManager.PERMISSION_GRANTED) {
                 RefreshConditions(WeakReference(context)).execute()
             } else {
-//                views.setTextViewText(R.id.description, "Permis")
+                views.setImageViewResource(R.id.weather_icon, R.drawable.unavailable)
+                views.setTextViewText(R.id.place_value, context.getString(R.string.visit_app))
             }
 
-//            Blurry.with(context).radius(25).sampling(2).onto(views as ViewGroup)
-
-
             // this intent is responsible for manually updating widget
-//            views.setOnClickPendingIntent(R.id.button_update, generateUpdateButtonIntent(context, appWidgetId))
-//            views.setTextViewText(R.id.appwidget_refresh,
-//                "Refreshed: " + SimpleDateFormat("dd.MM. HH:mm").format(Date(System.currentTimeMillis())))
+            views.setOnClickPendingIntent(R.id.weather_icon, generateUpdateButtonIntent(context, appWidgetId))
 
             appWidgetManager.updateAppWidget(appWidgetId, views)
         }

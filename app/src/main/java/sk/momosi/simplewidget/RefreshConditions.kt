@@ -19,8 +19,6 @@ import sk.momosi.simplewidget.entity.ResponseDto
 import sk.momosi.simplewidget.entity.WeatherDto
 import java.lang.Exception
 import java.lang.ref.WeakReference
-import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.math.roundToInt
 
 
@@ -35,6 +33,8 @@ class RefreshConditions(private val context: WeakReference<Context>) : AsyncTask
         val ctx = context.get()
         if (ctx != null) {
             fusedLocationClient = LocationServices.getFusedLocationProviderClient(ctx)
+
+            renderWidget(ctx, R.drawable.no_data, ctx.getString(R.string.loading), null)
         }
     }
 
@@ -47,6 +47,16 @@ class RefreshConditions(private val context: WeakReference<Context>) : AsyncTask
     override fun doInBackground(vararg params: Void?): ResponseDto? {
         // TODO handle null lastLocation
         val location: Location = Tasks.await(fusedLocationClient.lastLocation)
+
+        val prefs = context.get()?.getSharedPreferences("com.example.android.appwidgetsample", 0)
+        if (prefs != null) {
+            val prefEditor = prefs.edit()
+            prefEditor.putFloat("last_lat", location.latitude.toFloat())
+            prefEditor.putFloat("last_lon", location.longitude.toFloat())
+
+            prefEditor.apply()
+        }
+
         return refreshConditionsForCoordinates(location.latitude, location.longitude)
     }
 
@@ -91,20 +101,8 @@ class RefreshConditions(private val context: WeakReference<Context>) : AsyncTask
     private fun setResultError(context: Context) {
         Log.e("RefreshConditions", "setResultError called")
 
-//        val counter = increaseCounter(false)
-
-//        val lastUpdatedAt = context.getSharedPreferences("com.example.android.appwidgetsample", 0).getLong("last_ok", 0L)
-
         // update widget
-        val appWidgetManager = AppWidgetManager.getInstance(context)
-        val remoteViews = RemoteViews(context.packageName, R.layout.new_app_widget)
-//        remoteViews.setTextViewText(R.id.description, DateUtils.getRelativeTimeSpanString(lastUpdatedAt))
-//        remoteViews.setTextViewText(R.id.appwidget_err_count, context.resources.getString(R.string.count_err, counter))
-//        remoteViews.setTextViewText(R.id.appwidget_async,
-//            "LastAsync: " + SimpleDateFormat("dd.MM. HH:mm").format(Date(System.currentTimeMillis())))
-
-        val thisWidget = ComponentName(context, NewAppWidget::class.java)
-        appWidgetManager.updateAppWidget(thisWidget, remoteViews)
+        renderWidget(context, R.drawable.no_data, "Error", null)
     }
 
     private fun setResultOk(context: Context, response: ResponseDto?) {
@@ -112,24 +110,8 @@ class RefreshConditions(private val context: WeakReference<Context>) : AsyncTask
         val town = response?.name
         Log.e("RefreshConditions", "Response has came: $temp, ${response?.weather?.get(0)}")
 
-        val counter = increaseCounter(true)
-
         // update widget
-        val appWidgetManager = AppWidgetManager.getInstance(context)
-        val remoteViews = RemoteViews(context.packageName, R.layout.new_app_widget)
-        val controlTimestamp = SimpleDateFormat("HH:mm").format(Date(System.currentTimeMillis()))
-
-        remoteViews.setImageViewResource(R.id.weather_icon, resolveIconId(context, response?.weather?.get(0)))
-        remoteViews.setTextViewText(R.id.temperature_value, context.resources.getString(R.string.temperature, temp?.roundToInt()))
-        remoteViews.setTextViewText(R.id.place_value, "$town ($controlTimestamp)" )
-//        remoteViews.setTextViewText(R.id.description, response?.weather?.get(0)?.description ?: "-")
-
-//        remoteViews.setTextViewText(R.id.appwidget_ok_count, context.resources.getString(R.string.count_ok, counter))
-//        remoteViews.setTextViewText(R.id.appwidget_async,
-//            "LastAsync: " + SimpleDateFormat("dd.MM. HH:mm").format(Date(System.currentTimeMillis())))
-
-        val thisWidget = ComponentName(context, NewAppWidget::class.java)
-        appWidgetManager.updateAppWidget(thisWidget, remoteViews)
+        renderWidget(context, resolveIconId(context, response?.weather?.get(0)), town, temp)
     }
 
     private fun resolveIconId(context: Context, weatherDto: WeatherDto?): Int {
@@ -140,24 +122,17 @@ class RefreshConditions(private val context: WeakReference<Context>) : AsyncTask
         return context.resources.getIdentifier("w$icon", "drawable", context.packageName)
     }
 
-    private fun increaseCounter(isOk: Boolean): Int {
-        val prefs = context.get()?.getSharedPreferences("com.example.android.appwidgetsample", 0)
-        if (prefs != null) {
-            val key = if (isOk) "ok_count" else "error_count"
-            val count = prefs.getInt(key, 0) + 1
+    private fun renderWidget(context: Context, drawableId: Int = R.drawable.no_data, city: String? = "-", temp: Double?) {
+        val appWidgetManager = AppWidgetManager.getInstance(context)
+        val remoteViews = RemoteViews(context.packageName, R.layout.new_app_widget)
+//        val controlTimestamp = SimpleDateFormat("HH:mm").format(Date(System.currentTimeMillis()))
 
-            val prefEditor = prefs.edit()
-            prefEditor.putInt(key, count)
+        remoteViews.setImageViewResource(R.id.weather_icon, drawableId)
+        remoteViews.setTextViewText(R.id.temperature_value, if (temp == null) "-" else context.resources.getString(R.string.temperature, temp.roundToInt()))
+        remoteViews.setTextViewText(R.id.place_value, city)
 
-            if (isOk) {
-                prefEditor.putLong("last_ok", System.currentTimeMillis())
-            }
-
-            prefEditor.apply()
-
-            return count
-        }
-        return -1
+        val thisWidget = ComponentName(context, NewAppWidget::class.java)
+        appWidgetManager.updateAppWidget(thisWidget, remoteViews)
     }
 
 }
