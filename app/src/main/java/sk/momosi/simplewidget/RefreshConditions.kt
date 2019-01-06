@@ -124,14 +124,14 @@ class RefreshConditions(private val context: WeakReference<Context>) : AsyncTask
 
     private fun renderWidget(context: Context, drawableId: Int = R.drawable.no_data, city: String? = "-", temp: Double?) {
         val appWidgetManager = AppWidgetManager.getInstance(context)
-        val remoteViews = RemoteViews(context.packageName, R.layout.new_app_widget)
+        val remoteViews = RemoteViews(context.packageName, R.layout.actual_2x1_widget)
 //        val controlTimestamp = SimpleDateFormat("HH:mm").format(Date(System.currentTimeMillis()))
 
         remoteViews.setImageViewResource(R.id.weather_icon, drawableId)
         remoteViews.setTextViewText(R.id.temperature_value, if (temp == null) "-" else context.resources.getString(R.string.temperature, temp.roundToInt()))
         remoteViews.setTextViewText(R.id.place_value, city)
 
-        val thisWidget = ComponentName(context, NewAppWidget::class.java)
+        val thisWidget = ComponentName(context, Actual2x1Widget::class.java)
         appWidgetManager.updateAppWidget(thisWidget, remoteViews)
     }
 

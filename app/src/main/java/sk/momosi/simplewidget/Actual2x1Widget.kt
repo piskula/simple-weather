@@ -13,7 +13,7 @@ import java.lang.ref.WeakReference
 /**
  * Implementation of App Widget functionality.
  */
-class NewAppWidget : AppWidgetProvider() {
+class Actual2x1Widget : AppWidgetProvider() {
 
     companion object {
 
@@ -22,7 +22,7 @@ class NewAppWidget : AppWidgetProvider() {
          * update is done periodically, interval is located in xml file
          */
         internal fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
-            val views = RemoteViews(context.packageName, R.layout.new_app_widget)
+            val views = RemoteViews(context.packageName, R.layout.actual_2x1_widget)
 
             val permissions = ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION)
             if (permissions == PackageManager.PERMISSION_GRANTED) {
@@ -40,7 +40,7 @@ class NewAppWidget : AppWidgetProvider() {
 
 
         private fun generateUpdateButtonIntent(context: Context, appWidgetId: Int): PendingIntent {
-            val intentUpdate = Intent(context, NewAppWidget::class.java)
+            val intentUpdate = Intent(context, Actual2x1Widget::class.java)
             intentUpdate.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
             intentUpdate.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, intArrayOf(appWidgetId));
 

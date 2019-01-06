@@ -4,8 +4,8 @@
                     android:minHeight="40dp"
                     android:updatePeriodMillis="1800000"
                     android:previewImage="@drawable/example_appwidget_preview"
-                    android:initialLayout="@layout/new_app_widget"
+                    android:initialLayout="@layout/actual_2x1_widget"
                     android:resizeMode="horizontal|vertical"
                     android:widgetCategory="home_screen"
-                    android:initialKeyguardLayout="@layout/new_app_widget">
+                    android:initialKeyguardLayout="@layout/actual_2x1_widget">
 </appwidget-provider>
