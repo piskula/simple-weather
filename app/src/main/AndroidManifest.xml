@@ -26,7 +26,7 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".Actual2x1Widget"
+        <receiver android:name=".widget.Actual2x1Widget"
                   android:label="@string/widget_actual_label">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
@@ -35,6 +35,17 @@
             <meta-data
                     android:name="android.appwidget.provider"
                     android:resource="@xml/actual_2x1_widget_info"/>
+        </receiver>
+
+        <receiver android:name=".widget.Actual3x1Widget"
+                  android:label="@string/widget_actual_label">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+
+            <meta-data
+                    android:name="android.appwidget.provider"
+                    android:resource="@xml/actual_3x1_widget_info"/>
         </receiver>
     </application>
 

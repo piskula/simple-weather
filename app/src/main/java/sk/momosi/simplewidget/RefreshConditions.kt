@@ -20,9 +20,14 @@ import sk.momosi.simplewidget.entity.WeatherDto
 import java.lang.Exception
 import java.lang.ref.WeakReference
 import kotlin.math.roundToInt
+import kotlin.reflect.KClass
 
 
-class RefreshConditions(private val context: WeakReference<Context>) : AsyncTask<Void, Void, ResponseDto?>() {
+class RefreshConditions(
+    private val context: WeakReference<Context>,
+    private val layoutId: Int,
+    private val clazz: KClass<*>
+) : AsyncTask<Void, Void, ResponseDto?>() {
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     var error: Exception? = null
@@ -124,14 +129,14 @@ class RefreshConditions(private val context: WeakReference<Context>) : AsyncTask
 
     private fun renderWidget(context: Context, drawableId: Int = R.drawable.no_data, city: String? = "-", temp: Double?) {
         val appWidgetManager = AppWidgetManager.getInstance(context)
-        val remoteViews = RemoteViews(context.packageName, R.layout.actual_2x1_widget)
+        val remoteViews = RemoteViews(context.packageName, layoutId)
 //        val controlTimestamp = SimpleDateFormat("HH:mm").format(Date(System.currentTimeMillis()))
 
         remoteViews.setImageViewResource(R.id.weather_icon, drawableId)
         remoteViews.setTextViewText(R.id.temperature_value, if (temp == null) "-" else context.resources.getString(R.string.temperature, temp.roundToInt()))
         remoteViews.setTextViewText(R.id.place_value, city)
 
-        val thisWidget = ComponentName(context, Actual2x1Widget::class.java)
+        val thisWidget = ComponentName(context, clazz.java)
         appWidgetManager.updateAppWidget(thisWidget, remoteViews)
     }
 

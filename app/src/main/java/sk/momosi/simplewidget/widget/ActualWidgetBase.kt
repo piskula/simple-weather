@@ -1,4 +1,4 @@
-package sk.momosi.simplewidget
+package sk.momosi.simplewidget.widget
 
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
@@ -8,12 +8,15 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.support.v4.content.ContextCompat
 import android.widget.RemoteViews
+import sk.momosi.simplewidget.R
+import sk.momosi.simplewidget.RefreshConditions
 import java.lang.ref.WeakReference
+import kotlin.reflect.KClass
 
 /**
  * Implementation of App Widget functionality.
  */
-class Actual2x1Widget : AppWidgetProvider() {
+abstract class ActualWidgetBase : AppWidgetProvider() {
 
     companion object {
 
@@ -21,26 +24,38 @@ class Actual2x1Widget : AppWidgetProvider() {
          * This method is responsible for updating widget
          * update is done periodically, interval is located in xml file
          */
-        internal fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
-            val views = RemoteViews(context.packageName, R.layout.actual_2x1_widget)
+        internal fun updateAppWidget(
+            context: Context,
+            appWidgetManager: AppWidgetManager,
+            appWidgetId: Int,
+            widgetLayoutId: Int,
+            clazz: KClass<*>
+        ) {
+            val views = RemoteViews(context.packageName, widgetLayoutId)
 
             val permissions = ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION)
             if (permissions == PackageManager.PERMISSION_GRANTED) {
-                RefreshConditions(WeakReference(context)).execute()
+                RefreshConditions(WeakReference(context), widgetLayoutId, clazz).execute()
             } else {
-                views.setImageViewResource(R.id.weather_icon, R.drawable.unavailable)
+                views.setImageViewResource(
+                    R.id.weather_icon,
+                    R.drawable.unavailable
+                )
                 views.setTextViewText(R.id.place_value, context.getString(R.string.visit_app))
             }
 
             // this intent is responsible for manually updating widget
-            views.setOnClickPendingIntent(R.id.weather_icon, generateUpdateButtonIntent(context, appWidgetId))
+            views.setOnClickPendingIntent(
+                R.id.weather_icon,
+                generateUpdateButtonIntent(context, appWidgetId, clazz.java)
+            )
 
             appWidgetManager.updateAppWidget(appWidgetId, views)
         }
 
 
-        private fun generateUpdateButtonIntent(context: Context, appWidgetId: Int): PendingIntent {
-            val intentUpdate = Intent(context, Actual2x1Widget::class.java)
+        private fun generateUpdateButtonIntent(context: Context, appWidgetId: Int, clazz: Class<*>): PendingIntent {
+            val intentUpdate = Intent(context, clazz)
             intentUpdate.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
             intentUpdate.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, intArrayOf(appWidgetId));
 
@@ -48,13 +63,6 @@ class Actual2x1Widget : AppWidgetProvider() {
                 context, appWidgetId, intentUpdate,
                 PendingIntent.FLAG_UPDATE_CURRENT
             )
-        }
-    }
-
-    override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
-        // There may be multiple widgets active, so update all of them
-        for (appWidgetId in appWidgetIds) {
-            updateAppWidget(context, appWidgetManager, appWidgetId)
         }
     }
 }

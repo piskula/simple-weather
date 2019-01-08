@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/widget_margin"
+                android:background="#66FFFFFF">
+
+    <!--TODO try implement animations using ViewFlipper-->
+    <!--<ViewFlipper-->
+            <!--android:layout_width="75dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_marginStart="4dp"-->
+            <!--android:layout_marginTop="4dp"-->
+            <!--android:layout_marginBottom="0dp"-->
+            <!--android:measureAllChildren="true"-->
+            <!--android:flipInterval="4000"-->
+            <!--android:autoStart="true"-->
+            <!--android:inAnimation="@android:anim/fade_in"-->
+            <!--android:outAnimation="@android:anim/fade_out"-->
+            <!--android:animateFirstView="true"-->
+            <!--android:layout_toStartOf="@+id/temperature_value"-->
+            <!--android:layout_above="@+id/place_value"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:layout_alignParentStart="true">-->
+
+    <ImageView
+            android:id="@+id/weather_icon"
+            android:layout_width="75dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="0dp"
+            android:src="@drawable/unavailable"
+            android:contentDescription="TODO"
+            android:scaleType="fitStart"
+            android:layout_toStartOf="@+id/place_value"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"/>
+    <!--</ViewFlipper>-->
+
+    <TextView
+            android:id="@+id/temperature_value"
+            android:text="-"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:layout_alignParentTop="true"
+            android:fontFamily="@font/advent_pro_thin"
+            android:textSize="48sp"
+            android:layout_marginTop="2dp"
+            android:layout_toStartOf="@+id/textView"/>
+
+    <TextView
+            android:id="@+id/place_value"
+            android:text="-"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
+            android:maxLines="1"
+            android:fontFamily="@font/advent_pro_thin"
+            android:textSize="18sp"/>
+    <TextView
+            android:text="°C"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/advent_pro_thin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView"
+            android:textSize="24sp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"/>
+
+</RelativeLayout>

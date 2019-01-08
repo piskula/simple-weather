@@ -11,6 +11,8 @@ import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 import android.content.Intent
 import android.net.Uri
+import sk.momosi.simplewidget.widget.Actual2x1Widget
+import sk.momosi.simplewidget.widget.Actual3x1Widget
 import java.lang.ref.WeakReference
 
 private const val MY_PERMISSION_ACCESS_COARSE_LOCATION = 11
@@ -46,7 +48,8 @@ class MainActivity : AppCompatActivity() {
 
         if (isEnabled) {
             // when app is open or location permissions are granted, perform refresh
-            RefreshConditions(WeakReference(this)).execute()
+            RefreshConditions(WeakReference(this), R.layout.actual_2x1_widget, Actual2x1Widget::class).execute()
+            RefreshConditions(WeakReference(this), R.layout.actual_3x1_widget, Actual3x1Widget::class).execute()
         }
     }
 
