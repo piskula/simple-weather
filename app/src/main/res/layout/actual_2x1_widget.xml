@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/actual_widget_wrapper"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="@dimen/widget_margin"
@@ -45,8 +46,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="48sp"
-            android:layout_marginEnd="0dp"
-            android:layout_marginTop="0dp"
             android:layout_alignParentTop="true"
             android:fontFamily="@font/advent_pro_thin"
             android:layout_toStartOf="@+id/textView"/>
@@ -54,7 +53,7 @@
     <TextView
             android:text="@string/unit_celsius"
             android:layout_marginTop="6dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="@dimen/default_horizontal_margin"
             android:fontFamily="@font/advent_pro_extralight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -65,13 +64,12 @@
 
     <TextView
             android:id="@+id/place_value"
-            android:text="-"
+            android:text="@string/empty_place"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="4dp"
+            android:ellipsize="end"
             style="@style/placeValue2x1"/>
 
 

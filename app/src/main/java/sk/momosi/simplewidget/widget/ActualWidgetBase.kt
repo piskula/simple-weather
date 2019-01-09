@@ -46,7 +46,7 @@ abstract class ActualWidgetBase : AppWidgetProvider() {
 
             // this intent is responsible for manually updating widget
             views.setOnClickPendingIntent(
-                R.id.weather_icon,
+                R.id.actual_widget_wrapper,
                 generateUpdateButtonIntent(context, appWidgetId, clazz.java)
             )
 
