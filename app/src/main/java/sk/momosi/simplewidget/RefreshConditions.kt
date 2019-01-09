@@ -50,8 +50,13 @@ class RefreshConditions(
      */
     @SuppressLint("MissingPermission")
     override fun doInBackground(vararg params: Void?): ResponseDto? {
-        // TODO handle null lastLocation
-        val location: Location = Tasks.await(fusedLocationClient.lastLocation)
+        val lastLocationTask = fusedLocationClient.lastLocation
+        if (lastLocationTask == null) {
+            error = IllegalStateException("lastLocation is not yet known")
+            return null
+        }
+
+        val location: Location = Tasks.await(lastLocationTask)
 
         val prefs = context.get()?.getSharedPreferences("com.example.android.appwidgetsample", 0)
         if (prefs != null) {
