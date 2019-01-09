@@ -71,7 +71,7 @@ class RefreshConditions(
 
         if (ctx != null) {
             if (error != null) {
-                setResultError(ctx)
+                setResultError(ctx, error.toString())
             } else {
                 setResultOk(ctx, result)
             }
@@ -80,7 +80,7 @@ class RefreshConditions(
 
     override fun onCancelled() {
         val ctx = context.get()
-        if (ctx != null) setResultError(ctx)
+        if (ctx != null) setResultError(ctx, "onCancelled")
     }
 
     private fun refreshConditionsForCoordinates(lat: Double, lon: Double): ResponseDto? {
@@ -103,8 +103,8 @@ class RefreshConditions(
         }
     }
 
-    private fun setResultError(context: Context) {
-        Log.e("RefreshConditions", "setResultError called")
+    private fun setResultError(context: Context, msg: String) {
+        Log.e("RefreshConditions", "setResultError called: $msg")
 
         // update widget
         renderWidget(context, R.drawable.no_data, "Error", null)

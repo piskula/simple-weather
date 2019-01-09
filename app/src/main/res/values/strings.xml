@@ -8,4 +8,5 @@
     <string name="gps_data">GPS data:</string>
     <string name="last_known_location">Last known location:</string>
     <string name="widget_actual_label">Actual Weather</string>
+    <string name="unit_celsius">°C</string>
 </resources>

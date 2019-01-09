@@ -63,4 +63,32 @@
         <item name="android:minHeight">0dp</item>
     </style>
 
+    <style name="placeValueBase">
+        <!--<item name="android:fontFamily">@font/fresca</item>-->
+        <!--<item name="android:textSize">14sp</item>-->
+
+        <!--<item name="android:fontFamily">@font/tulpen_one</item>-->
+        <!--<item name="android:textSize">18sp</item>-->
+
+        <item name="android:fontFamily">@font/advent_pro_medium</item>
+        <item name="android:textSize">14sp</item>
+
+        <!--<item name="android:textSize">12sp</item>-->
+    </style>
+    <style name="placeValue3x1" parent="placeValueBase">
+        <item name="android:autoSizeTextType">uniform</item>
+        <item name="android:textAlignment">viewEnd</item>
+        <item name="android:maxLines">2</item>
+    </style>
+    <style name="placeValue2x1" parent="placeValueBase">
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="temperatureValue">
+        <item name="android:fontFamily">@font/advent_pro_thin</item>
+        <item name="android:autoSizeTextType">uniform</item>
+        <item name="android:textAlignment">viewEnd</item>
+        <item name="android:autoSizeMaxTextSize">200sp</item>
+    </style>
+
 </resources>

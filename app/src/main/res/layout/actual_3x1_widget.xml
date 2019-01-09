@@ -29,7 +29,7 @@
             android:layout_height="match_parent"
             android:layout_marginStart="4dp"
             android:layout_marginTop="4dp"
-            android:layout_marginBottom="0dp"
+            android:layout_marginBottom="4dp"
             android:src="@drawable/unavailable"
             android:contentDescription="TODO"
             android:scaleType="fitStart"
@@ -41,14 +41,14 @@
     <TextView
             android:id="@+id/temperature_value"
             android:text="-"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="2dp"
-            android:layout_alignParentTop="true"
-            android:fontFamily="@font/advent_pro_thin"
-            android:textSize="48sp"
             android:layout_marginTop="2dp"
-            android:layout_toStartOf="@+id/textView"/>
+            android:layout_alignParentTop="true"
+            android:layout_above="@+id/place_value"
+            android:layout_toStartOf="@+id/textView"
+            style="@style/temperatureValue"/>
 
     <TextView
             android:id="@+id/place_value"
@@ -59,14 +59,13 @@
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="4dp"
-            android:maxLines="1"
-            android:fontFamily="@font/advent_pro_thin"
-            android:textSize="18sp"/>
+            style="@style/placeValue3x1"/>
+
     <TextView
-            android:text="°C"
+            android:text="@string/unit_celsius"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:fontFamily="@font/advent_pro_thin"
+            android:fontFamily="@font/advent_pro_extralight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView"
